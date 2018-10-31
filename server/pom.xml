@@ -96,7 +96,7 @@
                         <goal>npm</goal>
                     </goals>
                     <configuration>
-                        <arguments>run build</arguments>
+                        <arguments>run build NODE_ENV=production </arguments>
                     </configuration>
                 </execution>
             </executions>

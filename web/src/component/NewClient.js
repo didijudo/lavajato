@@ -37,7 +37,14 @@ class NewClient extends React.Component<{}, NCState> {
 		};
 		xfetch('/client', data, 'post')
 			.then(res => res.json())
-			.then(d => this.setState({inserted: true}));
+			.then(d => this.setState({
+				nameClient: '',
+				email: '',
+				phone: '',
+				car: '',
+				inserted: true,
+			}));
+		
 	}
 
 	render() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import {xfetch} from '../commons/Commons';
+import {Table, Label} from 'semantic-ui-react';
 
 type LCState = {
 	clients: Array,
@@ -36,34 +37,34 @@ class ListClient extends React.Component<{}, LCState> {
 
 		return (
 			<div className="col-12 text-center">
-				<table className="table table-hover">
-					<thead>
-						<tr>
-							<th> Nome </th>
-							<th> Telefone </th>
-							<th> Email </th>
-							<th> Veiculo </th>
-							<th> Acao </th>
-						</tr>
-					</thead>
-					<tbody>
+				<Table celled>
+					<Table.Header>
+						<Table.Row>
+							<Table.HeaderCell>Nome</Table.HeaderCell>
+							<Table.HeaderCell>Telefone</Table.HeaderCell>
+							<Table.HeaderCell>Carro</Table.HeaderCell>
+							<Table.HeaderCell>Acao</Table.HeaderCell>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
 						{clients.map((v, k) => {
 							return (
-								<tr key={k}>
-									<td> {v.name} </td>
-									<td> {v.phone} </td>
-									<td> {v.email} </td>
-									<td> {v.car} </td>
-									<td> 
+								<Table.Row key={k}>
+									<Table.Cell>
+										<Label ribbon>{v.name}</Label>
+									</Table.Cell>
+									<Table.Cell>{v.phone}</Table.Cell>
+									<Table.Cell>{v.car}</Table.Cell>
+									<Table.Cell>
 										<Link to={'/wash/'+v.id}> 
 											<span title='Novo Servico' className="fa fa-plus"/>
 										</Link>
-									</td>
-								</tr>
+									</Table.Cell>
+								</Table.Row>
 							);
 						})}
-					</tbody>
-				</table>
+					</Table.Body>
+				</Table>
 			</div>
 		);
 	}

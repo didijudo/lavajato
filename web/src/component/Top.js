@@ -27,10 +27,11 @@ class Top extends Component<{}, any> {
 						</Header>
 					</Grid.Column>
 				</Grid>
-				<div className='col-12 text-center' style={({margin: '20px'})}>
-					<Link to='/' style={({margin: '10px'})}> Home </Link>
-					<Link to='/client/new' style={({margin: '10px'})}> Novo Cliente </Link>
-					<Link to='/service/new' style={({margin: '10px'})}> Criar Serviço </Link>
+				<div className='col-12 text-center' 
+					style={({marginTop: '10px', marginBottom: '20px'})}>
+					<Link to='/' style={({margin: '5px'})}> Home </Link>
+					<Link to='/client/new' style={({margin: '5px'})}> Novo Cliente </Link>
+					<Link to='/service/new' style={({margin: '5px'})}> Criar Serviço </Link>
 				</div>
 			</div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
-import {xfetch} from '../commons/Commons';
+import Commons, {xfetch} from '../commons/Commons';
+import $ from 'jquery';
 
 type NCSState = {
 	services: Array,
@@ -36,13 +37,14 @@ class NewClientService extends React.Component<{}, NCSState> {
 	handleSubmit = (e: SynteticEvent<>) => {
 		e.preventDefault();
 		const data = {
-			clientId: this.props.match.params.clientId,
+			clientId: Number.parseInt(this.props.match.params.clientId),
 			serviceId: this.state.serviceSelected,
 		};
 
-		/*xfetch('/wash/new', data, 'post')
-			.then(res => res.json())
-			.then(d => this.setState({inserted: true}));*/
+		$.post('http://'+Commons.server+':'+Commons.port+'/wash/new', data, function(res) {
+			this.setState({inserted: true});
+		}.bind(this))
+		.fail(function(r) { alert('Algo deu errado')});
 
 	}
 
@@ -58,7 +60,7 @@ class NewClientService extends React.Component<{}, NCSState> {
 			resp = (
 				<div className='col-12 text-center'> 
 					<label className='alert alert-success'>
-						Cliente inserido com sucesso
+						Serviço inserido com sucesso
 					</label>
 				</div>
 			);
