@@ -4,13 +4,24 @@ let Commons = {
 };
 export default Commons;
 
-let xfetch = (url: string, method: string, type: string) => {
+let xfetch = (url: string, data: object, method: string, type: string) => {
 	if (!type) {
-		console.log('coloquei type');
 		type = 'application/json';
 	}
+
+	if (method === 'get') {
+		console.log('get request');
+		return fetch('http://'+Commons.server+':'+Commons.port+url, 
+			{
+				method: method,
+				headers: new Headers({'content-type': type})
+			});
+	}
+	
+	console.log('post request');
 	return fetch('http://'+Commons.server+':'+Commons.port+url, 
 		{
+			body: JSON.stringify(data),
 			method: method,
 			headers: new Headers({'content-type': type})
 		});

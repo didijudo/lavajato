@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import {xfetch} from '../commons/Commons';
 
-type LCState = {
-	clients: Array,
+type LSState = {
+	services: Array,
 	isLoading: boolean,
 }
 
-class ListClient extends React.Component<{}, LCState> {
-	initialState: LCState
+class ListService extends React.Component<{}, LSState> {
+	initialState: LSState
 	constructor(props) {
 		super(props);
 		this.initialState = {
-			clients: [],
+			services: [],
 			isLoading: false,
 		};
 		this.state = this.initialState;
@@ -22,13 +22,13 @@ class ListClient extends React.Component<{}, LCState> {
 		this.setState({isLoading: true});
 		// xfetch é um método criado usando a biblioteca fetch para facilitar o trabalho
 		// Olhar em commons/Commons.js
-		xfetch('/clients', {}, 'get')
+		xfetch('/services', {}, 'get')
 			.then(res => res.json())
-			.then(data => this.setState({clients: data, isLoading: false}));
+			.then(data => this.setState({services: data, isLoading: false}));
 	}
 
 	render() {
-		const {clients, isLoading} = this.state;
+		const {services, isLoading} = this.state;
 
 		if(isLoading) {
 			return <div> Carregando <i className="fa fa-spinner fa-spin"/> </div>;
@@ -40,23 +40,19 @@ class ListClient extends React.Component<{}, LCState> {
 					<thead>
 						<tr>
 							<th> Nome </th>
-							<th> Telefone </th>
-							<th> Email </th>
-							<th> Veiculo </th>
+							<th> Valor </th>
 							<th> Acao </th>
 						</tr>
 					</thead>
 					<tbody>
-						{clients.map((v, k) => {
+						{services.map((v, k) => {
 							return (
 								<tr key={k}>
 									<td> {v.name} </td>
-									<td> {v.phone} </td>
-									<td> {v.email} </td>
-									<td> {v.car} </td>
+									<td> R$ {v.value} </td>
 									<td> 
-										<Link to={'/wash/'+v.id}> 
-											<span title='Novo Servico' className="fa fa-plus"/>
+										<Link to={'/service/'+v.id}> 
+											<i className="fa fa-info"/> 
 										</Link>
 									</td>
 								</tr>
@@ -69,4 +65,4 @@ class ListClient extends React.Component<{}, LCState> {
 	}
 }
 
-export default ListClient;
+export default ListService;

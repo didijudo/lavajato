@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import Home from './component/Home';
 import Top from './component/Top';
 import Login from './component/Login';
+import NewClient from './component/NewClient';
+import NewService from './component/NewService';
+import NewClientService from './component/NewClientService';
 import NoMatch from './component/NoMatch';
 import {Container} from 'semantic-ui-react';
 import * as serviceWorker from './serviceWorker';
@@ -15,6 +18,9 @@ ReactDOM.render(
 			<Switch>
 				{ /*<Route path="/" exact={true} component={Login} /> */}
 				<Route path="/" exact={true} component={Home} />
+				<Route path="/client/new" exact={true} component={NewClient} />
+				<Route path="/service/new" exact={true} component={NewService} />
+				<Route path="/wash/:clientId/" exact={true} component={NewClientService} />
 				<Route component={NoMatch} />
 			</Switch>
 		</Container>

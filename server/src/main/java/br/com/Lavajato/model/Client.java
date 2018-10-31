@@ -1,9 +1,7 @@
 package br.com.Lavajato.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +13,9 @@ public class Client {
     private String name;
     private String phone;
     private String email;
+    private String car;
+    @OneToMany
+    private List<Service> services;
 
     @Override
     public boolean equals(Object o) {
@@ -62,5 +63,21 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 }
