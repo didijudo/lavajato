@@ -6,6 +6,7 @@ export default Commons;
 
 let xfetch = (url: string, method: string, type: string) => {
 	if (!type) {
+		console.log('coloquei type');
 		type = 'application/json';
 	}
 	return fetch('http://'+Commons.server+':'+Commons.port+url, 
