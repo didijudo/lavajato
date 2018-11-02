@@ -1,6 +1,6 @@
 let Commons = {
-	server: 'localhost',
-	port: '8080',
+	server: 'pericles.dsandrade.info',
+	port: '8081',
 };
 export default Commons;
 
