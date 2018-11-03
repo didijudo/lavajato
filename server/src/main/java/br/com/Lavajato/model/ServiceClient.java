@@ -1,10 +1,12 @@
 package br.com.Lavajato.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.Objects;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class ServiceClient {
 
@@ -15,7 +17,7 @@ public class ServiceClient {
     private Client client;
     @OneToOne
     private Service service;
-    private GregorianCalendar date;
+    private Calendar date;
 
     @Override
     public boolean equals(Object o) {
@@ -56,11 +58,11 @@ public class ServiceClient {
         this.service = service;
     }
 
-    public GregorianCalendar getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(GregorianCalendar date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 }

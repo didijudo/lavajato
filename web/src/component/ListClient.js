@@ -59,6 +59,10 @@ class ListClient extends React.Component<{}, LCState> {
 										<Link to={'/wash/'+v.id}> 
 											<span title='Novo Servico' className="fa fa-plus"/>
 										</Link>
+										&nbsp;|&nbsp;
+										<Link to={'/detail/'+v.id}> 
+											<span title='Informações' className="fa fa-info"/>
+										</Link>
 									</Table.Cell>
 								</Table.Row>
 							);

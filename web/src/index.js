@@ -10,6 +10,7 @@ import NoMatch from './component/NoMatch';
 import {Container} from 'semantic-ui-react';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import DetailClient from './component/DetailClient';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -21,6 +22,7 @@ ReactDOM.render(
 				<Route path="/client/new" exact={true} component={NewClient} />
 				<Route path="/service/new" exact={true} component={NewService} />
 				<Route path="/wash/:clientId/" exact={true} component={NewClientService} />
+				<Route path="/detail/:clientId/" exact={true} component={DetailClient} />
 				<Route component={NoMatch} />
 			</Switch>
 		</Container>

@@ -13,6 +13,7 @@ import javax.xml.ws.http.HTTPException;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -47,7 +48,14 @@ public class ClientController {
         ServiceClient sv = new ServiceClient();
         sv.setClient(c);
         sv.setService(s);
-        sv.setDate(new GregorianCalendar());
+        sv.setDate(Calendar.getInstance());
         repoServiceClient.save(sv);
+    }
+
+    @GetMapping("/test/detail")
+    public List<ServiceClient> getDetails(String clientId) {
+        Client c = repoClient.getOne(Long.parseLong(clientId));
+        List<ServiceClient> res = repoServiceClient.findByClientEquals(c);
+        return res;
     }
 }

@@ -1,5 +1,7 @@
 package br.com.Lavajato.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +9,7 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Service {
 
