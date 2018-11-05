@@ -50,7 +50,11 @@ class ListService extends React.Component<{}, LSState> {
 								<tr key={k}>
 									<td> {v.name} </td>
 									<td> R$ {v.value} </td>
-									<td> 
+									<td>
+										<Link to={'/service/edit'+v.id}> 
+											<i className="fa fa-edit"/> 
+										</Link>
+										&nbsp;|&nbsp;
 										<Link to={'/service/'+v.id}> 
 											<i className="fa fa-info"/> 
 										</Link>
