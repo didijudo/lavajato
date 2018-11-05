@@ -60,6 +60,10 @@ class ListClient extends React.Component<{}, LCState> {
 											<span title='Novo Servico' className="fa fa-plus"/>
 										</Link>
 										&nbsp;|&nbsp;
+										<Link to={'/edit/'+v.id}> 
+											<span title='Alterar' className="fa fa-edit"/>
+										</Link>
+										&nbsp;|&nbsp;
 										<Link to={'/detail/'+v.id}> 
 											<span title='Informações' className="fa fa-info"/>
 										</Link>
