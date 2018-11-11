@@ -1,20 +1,29 @@
 import React from 'react';
 import {xfetch} from '../commons/Commons';
+import $ from 'jquery';
 
-type NCSState = {
-	client: object,
-	inserted: boolean,
-    isLoading: boolean,
+type ECState = {
+	client: Object,
+	nameClient: string,
+	email: string,
+	phone: string,
+	car: string,
+	updated: boolean,
+	isLoading: boolean,
 }
 
-class EditClient extends React.Component<{}, NCSState> {
-	initialState: NCSState
-	constructor(props: NCSProps) {
+class EditClient extends React.Component<{}, ECState> {
+	initialState: ECState
+	constructor(props) {
 		super(props);
 		this.initialState = {
 			client: {},
-			inserted: false,
-            isLoading: false,
+			nameClient: '',
+			email: '',
+			phone: '',
+			car: '',
+			updated: false,
+			isLoading: false,
 		};
 		this.state = this.initialState;
 	}
@@ -23,76 +32,100 @@ class EditClient extends React.Component<{}, NCSState> {
 		this.setState({isLoading: true});
 		xfetch('/client/'+this.props.match.params.clientId, {}, 'get')
 			.then(resp => resp.json())
-			.then(data => this.setState({client: data, isLoading: false})); 
+			.then(data => 
+				this.setState({
+					client: data, 
+					nameClient: data.name,
+					email: data.email,
+					phone: data.phone,
+					car: data.car,
+					isLoading: false})); 
 	}
 
-    handleInputChange = (ev: SynteticEvent<>) => {
-        let target = ev.target;
-        
+	handleInputChange = (ev: SynteticEvent<>) => {
+		const target = ev.target;
 		this.setState({
-            client: target.name,
-        });
-    }
+			[target.name]: target.value,
+			updated: false
+		});
+	}
 
 	handleSubmit = (e: SynteticEvent<>) => {
 		e.preventDefault();
 		const data = {
-            clientId: Number.parseInt(this.props.match.params.clientId),
+			id: Number.parseInt(this.props.match.params.clientId),
+			name: this.state.nameClient,
+			email: this.state.email,
+			phone: this.state.phone,
+			car: this.state.car
 		};
-
-        this.setState({
-            inserted: true,
-        });
+		//TODO fazer envio do formulario para o servidor
+		xfetch('/client/'+this.props.match.params.clientId, data, 'put')
+			.then(resp => resp.json())
+			.then(data => this.setState({client: data, updated: true})); 
 	}
 
-    render() {
-        let {client, isLoading, inserted} = this.state;
+	render() {
+		const {client, nameClient, phone, email, car, isLoading, updated} = this.state;
 		let resp = <div/>;
-		if (inserted) {
+		if (updated) {
 			resp = (
-				<div className='col-12 text-center'> 
+				<div id="idUpdate" className='col-12 text-center'> 
 					<label className='alert alert-success'>
 						Cliente alterado com sucesso
 					</label>
 				</div>
 			);
 		}
+		if (isLoading) {
+			return (
+				<div className="col-12 text-center">
+					<div className="col-12 text-center"> 
+						Carregando 
+						<i className="fa fa-spinner fa-spin"/> 
+					</div>
+				</div>
+			);
+		}
 		return(
 			<div className="col-12 text-center">
+				<div className="col-12 text-center" style={({margin: "15px"})}>
+					<h3> Alterar dados de {client.name} </h3>
+				</div>
 				{resp}
 				<form onSubmit={this.handleSubmit}>
 					<div className="form-row">
 						<div className="col-12">
 							<input
-                                name="nameClient"
+								name="nameClient"
 								type="text"
 								className="form-control"
-								value={client.name}
-                                onChange={this.handleInputChange}/>
+								value={nameClient}
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12">
 							<input
 								name="email"
-                                type="text"
+								type="text"
 								className="form-control"
-								value={client.email}
-                                onChange={this.handleInputChange}/>
+								value={email}
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12">
 							<input
-                                name="phone"
+								name="phone"
 								type="text"
 								className="form-control"
-								value={client.phone}
-                                onChange={this.handleInputChange}/>
+								value={phone}
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12">
 							<input
-                                name="car"
+								name="car"
 								type="text"
 								className="form-control"
-								value={client.car}
-                                onChange={this.handleInputChange}/>
+								value={car}
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12" style={({margin: '10px'})}>
 							<button className="btn btn-success"> Alterar </button>

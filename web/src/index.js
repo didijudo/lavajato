@@ -7,7 +7,7 @@ import NewClient from './component/NewClient';
 import NewService from './component/NewService';
 import NewClientService from './component/NewClientService';
 import EditClient from './component/EditClient';
-import EditService from './component/EditService';
+//import EditService from './component/EditService';
 import NoMatch from './component/NoMatch';
 import {Container} from 'semantic-ui-react';
 import * as serviceWorker from './serviceWorker';
@@ -19,13 +19,13 @@ ReactDOM.render(
 		<Container>
 			<Top />
 			<Switch>
-				{ /*<Route path="/" exact={true} component={Login} /> */}
+				{/*<Route path="/" exact={true} component={Login} /> */}
 				<Route path="/" exact={true} component={Home} />
 				<Route path="/client/new" exact={true} component={NewClient} />
 				<Route path="/service/new" exact={true} component={NewService} />
 				<Route path="/wash/:clientId/" exact={true} component={NewClientService} />
-				<Route path="/edit/:clientId/" exact={true} component={EditClient} />
-				<Route path="/service/edit/:serviceId/" exact={true} component={EditService} />
+				<Route path="/edit/:clientId/" exact={true} component={EditClient} /> 
+				{/*<Route path="/service/edit/:serviceId/" exact={true} component={EditService} />*/}
 				<Route path="/detail/:clientId/" exact={true} component={DetailClient} />
 				<Route component={NoMatch} />
 			</Switch>

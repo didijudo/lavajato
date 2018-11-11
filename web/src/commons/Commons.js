@@ -1,6 +1,6 @@
 let Commons = {
-	server: 'pericles.dsandrade.info',
-	port: '8081',
+	server: 'localhost',
+	port: '8080',
 };
 export default Commons;
 
@@ -18,7 +18,7 @@ let xfetch = (url: string, data: object, method: string, type: string) => {
 			});
 	}
 	
-	console.log('post request');
+	console.log('request '+ method);
 	return fetch('http://'+Commons.server+':'+Commons.port+url, 
 		{
 			body: JSON.stringify(data),

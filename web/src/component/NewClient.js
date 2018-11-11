@@ -44,7 +44,6 @@ class NewClient extends React.Component<{}, NCState> {
 				car: '',
 				inserted: true,
 			}));
-		
 	}
 
 	render() {
