@@ -1,19 +1,23 @@
 import React from 'react';
 import {xfetch} from '../commons/Commons';
 
-type NCSState = {
+type ESState = {
 	service: object,
-	inserted: boolean,
+	nameService: string,
+	value: string,
+	updated: boolean,
     isLoading: boolean,
 }
 
 class EditService extends React.Component<{}, NCSState> {
-	initialState: NCSState
-	constructor(props: NCSProps) {
+	initialState: ESState
+	constructor(props) {
 		super(props);
 		this.initialState = {
-			services: {},
-			inserted: false,
+			service: {},
+			nameService: '',
+			value: '',
+			updated: false,
             isLoading: false,
 		};
 		this.state = this.initialState;
@@ -21,39 +25,57 @@ class EditService extends React.Component<{}, NCSState> {
 
 	componentDidMount() {
 		this.setState({isLoading: true});
-		xfetch('/services/'+this.props.match.params.serviceId, {}, 'get')
+		xfetch('/service/'+this.props.match.params.serviceId, {}, 'get')
 			.then(resp => resp.json())
-			.then(data => this.setState({services: data, isLoading: false})); 
+			.then(data => 
+			this.setState({
+				service: data, 
+				nameService: data.name,
+				value: data.value,
+				isLoading: false})); 
 	}
 
     handleInputChange = (ev: SynteticEvent<>) => {
-        let target = ev.target;
-        
-		this.setState({
-            services: target.name,
-        });
-    }
+		let target = ev.target;
+        this.setState({
+			[target.name]: target.value,
+			updated: false
+			});
+	}
 
 	handleSubmit = (e: SynteticEvent<>) => {
 		e.preventDefault();
 		const data = {
             serviceId: Number.parseInt(this.props.match.params.serviceId),
+            name: this.state.nameService,
+            value: this.state.value,
 		};
 
-        this.setState({
-            inserted: true,
-        });
+        // TODO fazer o envio do formulario para o servidor
+		xfetch('/service/'+this.props.match.params.serviceId, data, 'put')
+			.then(resp => resp.json())
+			.then(data => this.setState({service: data, updated: true}));
 	}
 
     render() {
-        let {services, isLoading, inserted} = this.state;
+        let {service, nameService, value, isLoading, updated} = this.state;
 		let resp = <div/>;
-		if (inserted) {
+		if (updated) {
 			resp = (
-				<div className='col-12 text-center'> 
+				<div id="idUpdate" className='col-12 text-center'> 
 					<label className='alert alert-success'>
 						Serviço alterado com sucesso
 					</label>
+				</div>
+			);
+		}
+		if (isLoading) {
+			return (
+				<div className="col-12 text-center">
+					<div className="col-12 text-center"> 
+						Carregando 
+						<i className="fa fa-spinner fa-spin"/> 
+					</div>
 				</div>
 			);
 		}
@@ -64,34 +86,18 @@ class EditService extends React.Component<{}, NCSState> {
 					<div className="form-row">
 						<div className="col-12">
 							<input
-                                name="nameClient"
+                                name="nameService"
 								type="text"
 								className="form-control"
-								value={client.name}
+								value={nameService}
                                 onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12">
 							<input
-								name="email"
+								name="value"
                                 type="text"
 								className="form-control"
-								value={client.email}
-                                onChange={this.handleInputChange}/>
-						</div>
-						<div className="col-12">
-							<input
-                                name="phone"
-								type="text"
-								className="form-control"
-								value={client.phone}
-                                onChange={this.handleInputChange}/>
-						</div>
-						<div className="col-12">
-							<input
-                                name="car"
-								type="text"
-								className="form-control"
-								value={client.car}
+								value={value}
                                 onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12" style={({margin: '10px'})}>

@@ -51,7 +51,7 @@ class ListService extends React.Component<{}, LSState> {
 									<td> {v.name} </td>
 									<td> R$ {v.value} </td>
 									<td>
-										<Link to={'/service/edit'+v.id}> 
+										<Link to={'/service/edit/'+v.id}> 
 											<i className="fa fa-edit"/> 
 										</Link>
 										&nbsp;|&nbsp;
