@@ -27,26 +27,26 @@ class EditService extends React.Component<{}, NCSState> {
 	}
 
     handleInputChange = (ev: SynteticEvent<>) => {
-        let target = ev.target;
+			let target = ev.target;
         
-		this.setState({
-            services: target.name,
-        });
+			this.setState({
+				services: target.name,
+			});
     }
 
 	handleSubmit = (e: SynteticEvent<>) => {
 		e.preventDefault();
 		const data = {
-            serviceId: Number.parseInt(this.props.match.params.serviceId),
+			serviceId: Number.parseInt(this.props.match.params.serviceId),
 		};
 
-        this.setState({
-            inserted: true,
-        });
+		this.setState({
+			inserted: true,
+		});
 	}
 
-    render() {
-        let {services, isLoading, inserted} = this.state;
+	render() {
+		let {services, isLoading, inserted} = this.state;
 		let resp = <div/>;
 		if (inserted) {
 			resp = (
@@ -64,23 +64,23 @@ class EditService extends React.Component<{}, NCSState> {
 					<div className="form-row">
 						<div className="col-12">
 							<input
-                                name="nameClient"
+								name="nameClient"
 								type="text"
 								className="form-control"
 								value={client.name}
-                                onChange={this.handleInputChange}/>
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12">
 							<input
 								name="email"
-                                type="text"
+								type="text"
 								className="form-control"
 								value={client.email}
-                                onChange={this.handleInputChange}/>
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12">
 							<input
-                                name="phone"
+								name="phone"
 								type="text"
 								className="form-control"
 								value={client.phone}
@@ -88,11 +88,11 @@ class EditService extends React.Component<{}, NCSState> {
 						</div>
 						<div className="col-12">
 							<input
-                                name="car"
+								name="car"
 								type="text"
 								className="form-control"
 								value={client.car}
-                                onChange={this.handleInputChange}/>
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className="col-12" style={({margin: '10px'})}>
 							<button className="btn btn-success"> Alterar </button>
