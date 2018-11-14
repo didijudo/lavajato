@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import {xfetch} from '../commons/Commons';
-import {Table, Label} from 'semantic-ui-react';
+import {Table, Label, Icon} from 'semantic-ui-react';
 
 type LCState = {
 	clients: Array,
 	isLoading: boolean,
+	deleted: boolean,
 }
 
 class ListClient extends React.Component<{}, LCState> {
@@ -15,17 +16,37 @@ class ListClient extends React.Component<{}, LCState> {
 		this.initialState = {
 			clients: [],
 			isLoading: false,
+			delete: false,
 		};
 		this.state = this.initialState;
 	}
 
-	componentDidMount() {
+	fetchClients = () => {
 		this.setState({isLoading: true});
-		// xfetch é um método criado usando a biblioteca fetch para facilitar o trabalho
-		// Olhar em commons/Commons.js
 		xfetch('/clients', {}, 'get')
 			.then(res => res.json())
 			.then(data => this.setState({clients: data, isLoading: false}));
+	}
+
+	componentDidMount() {
+		this.fetchClients();
+	}
+
+	delete = (e: HTMLElement<>) => {
+		const id = e.target.id;
+		const res = 
+			window.confirm("Deseja realmente excluir o cliente?");
+
+		if (res) {
+			xfetch('/client/'+id, {}, 'delete')
+				.then(data => {
+					//this.setState({deleted: true});
+					this.fetchClients();
+				})
+			.catch(function(error) {
+				alert('Não foi possivel apagar o cliente');
+			});
+		}
 	}
 
 	render() {
@@ -67,6 +88,8 @@ class ListClient extends React.Component<{}, LCState> {
 										<Link to={'/detail/'+v.id}> 
 											<span title='Informações' className="fa fa-info"/>
 										</Link>
+										&nbsp;|&nbsp;
+										<Icon color="red" id={v.id} onClick={this.delete} name='times' />
 									</Table.Cell>
 								</Table.Row>
 							);
