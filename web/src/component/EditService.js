@@ -58,7 +58,7 @@ class EditService extends React.Component<{}, NCSState> {
 	}
 
     render() {
-        let {service, nameService, value, isLoading, updated} = this.state;
+        let {nameService, value, isLoading, updated} = this.state;
 		let resp = <div/>;
 		if (updated) {
 			resp = (
