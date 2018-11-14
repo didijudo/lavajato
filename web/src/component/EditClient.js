@@ -1,6 +1,5 @@
 import React from 'react';
 import {xfetch} from '../commons/Commons';
-import $ from 'jquery';
 
 type ECState = {
 	client: Object,

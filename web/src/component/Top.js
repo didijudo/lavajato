@@ -32,6 +32,7 @@ class Top extends Component<{}, any> {
 					<Link to='/' style={({margin: '5px'})}> Home </Link>
 					<Link to='/client/new' style={({margin: '5px'})}> Novo Cliente </Link>
 					<Link to='/service/new' style={({margin: '5px'})}> Criar Serviço </Link>
+					<Link to='/report' style={({margin: '5px'})}> Relatório </Link>
 				</div>
 			</div>
     );

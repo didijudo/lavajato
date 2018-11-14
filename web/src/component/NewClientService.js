@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import Commons, {xfetch} from '../commons/Commons';
 import $ from 'jquery';
 
@@ -57,13 +58,7 @@ class NewClientService extends React.Component<{}, NCSState> {
 		const {client, isLoading, services, inserted} = this.state;
 		let resp = <div/>;
 		if (inserted) {
-			resp = (
-				<div className='col-12 text-center'> 
-					<label className='alert alert-success'>
-						Serviço inserido com sucesso
-					</label>
-				</div>
-			);
+			return <Redirect to={"/detail/"+this.props.match.params.clientId}/>;
 		}
 		if(isLoading) {
 			return ( 

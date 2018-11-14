@@ -1,7 +1,6 @@
 import React from 'react';
-import {Table, Label} from 'semantic-ui-react';
-import Commons, {xfetch} from '../commons/Commons';
-import $ from 'jquery';
+import {Table} from 'semantic-ui-react';
+import {xfetch} from '../commons/Commons';
 import {format} from 'date-fns';
 
 type DCState = {

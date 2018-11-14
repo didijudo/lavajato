@@ -2,10 +2,8 @@ package br.com.Lavajato.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +18,8 @@ public class Client {
     private String phone;
     private String email;
     private String car;
+    @Column(columnDefinition = "0")
+    private BigDecimal amount;
 
     @Override
     public boolean equals(Object o) {
@@ -75,5 +75,13 @@ public class Client {
 
     public void setCar(String car) {
         this.car = car;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

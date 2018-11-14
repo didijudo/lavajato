@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {xfetch} from '../commons/Commons';
+import {Icon} from 'semantic-ui-react';
 
 type LSState = {
 	services: Array,
@@ -18,13 +19,32 @@ class ListService extends React.Component<{}, LSState> {
 		this.state = this.initialState;
 	}
 
-	componentDidMount() {
+	fetchServices = () => {
 		this.setState({isLoading: true});
-		// xfetch é um método criado usando a biblioteca fetch para facilitar o trabalho
-		// Olhar em commons/Commons.js
 		xfetch('/services', {}, 'get')
 			.then(res => res.json())
 			.then(data => this.setState({services: data, isLoading: false}));
+	}
+
+	componentDidMount() {
+		this.fetchServices();
+	}
+
+	delete = (e: HTMLElement<>) => {
+		const id = e.target.id;
+		const res = 
+			window.confirm("Deseja realmente excluir esse serviço?");
+
+		if (res) {
+			xfetch('/service/'+id, {}, 'delete')
+				.then(data => {
+					//this.setState({deleted: true});
+					this.fetchServices();
+				})
+			.catch(function(error) {
+				alert('Não foi possivel apagar o cliente');
+			});
+		}
 	}
 
 	render() {
@@ -58,6 +78,8 @@ class ListService extends React.Component<{}, LSState> {
 										<Link to={'/service/'+v.id}> 
 											<i className="fa fa-info"/> 
 										</Link>
+										&nbsp;|&nbsp;
+										<Icon color="red" id={v.id} onClick={this.delete} name='times' />
 									</td>
 								</tr>
 							);

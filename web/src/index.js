@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './component/Home';
 import Top from './component/Top';
-import Login from './component/Login';
+//import Login from './component/Login';
 import NewClient from './component/NewClient';
 import NewService from './component/NewService';
 import NewClientService from './component/NewClientService';
@@ -13,6 +13,7 @@ import {Container} from 'semantic-ui-react';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import DetailClient from './component/DetailClient';
+import Report from './component/Report';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -27,6 +28,7 @@ ReactDOM.render(
 				<Route path="/edit/:clientId/" exact={true} component={EditClient} /> 
 				{<Route path="/service/edit/:serviceId/" exact={true} component={EditService} />}
 				<Route path="/detail/:clientId/" exact={true} component={DetailClient} />
+				<Route path="/report" exact={true} component={Report} />
 				<Route component={NoMatch} />
 			</Switch>
 		</Container>

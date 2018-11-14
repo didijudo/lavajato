@@ -1,5 +1,6 @@
 package br.com.Lavajato.controller;
 
+import br.com.Lavajato.Util;
 import br.com.Lavajato.model.Client;
 import br.com.Lavajato.model.Service;
 import br.com.Lavajato.model.ServiceClient;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.ws.http.HTTPException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -49,6 +51,10 @@ public class ClientController {
         sv.setClient(c);
         sv.setService(s);
         sv.setDate(Calendar.getInstance());
+
+        BigDecimal temp = c.getAmount();
+        c.setAmount(temp.add(s.getValue()));
+        repoClient.save(c);
         repoServiceClient.save(sv);
     }
 
@@ -58,4 +64,12 @@ public class ClientController {
         List<ServiceClient> res = repoServiceClient.findByClientEquals(c);
         return res;
     }
+
+    @GetMapping("/report")
+    public List<ServiceClient> getServices(String start, String end) {
+        Calendar s = Util.converterDataUSAParaCalendar(start);
+        Calendar e = Util.getDataUltimoMinutoDoDia(Util.converterDataUSAParaCalendar(end));
+        return repoServiceClient.findByDateBetween(s, e);
+    }
 }
+`
