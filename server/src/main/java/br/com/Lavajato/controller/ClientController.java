@@ -72,4 +72,3 @@ public class ClientController {
         return repoServiceClient.findByDateBetween(s, e);
     }
 }
-`
